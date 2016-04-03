@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Consoler by vaibhavpandeyvpz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Consoler</h1>
+      <h2 class="project-tagline">Extensions for symfony/console adding support for using any container-interop/container-interop compatible package.</h2>
+      <a href="https://github.com/vaibhavpandeyvpz/consoler" class="btn">View on GitHub</a>
+      <a href="https://github.com/vaibhavpandeyvpz/consoler/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/vaibhavpandeyvpz/consoler/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="vaibhavpandeyvpzconsoler" class="anchor" href="#vaibhavpandeyvpzconsoler" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>vaibhavpandeyvpz/consoler</h1>
+
+<p>Extensions for <a href="https://github.com/symfony/console">symfony/console</a> adding support for using any <a href="https://github.com/container-interop/container-interop">container-interop/container-interop</a> compatible package.</p>
+
+<h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h2>
+
+<div class="highlight highlight-source-shell"><pre>composer require vaibhavpandeyvpz/consoler</pre></div>
+
+<p>You may also want to install <a href="https://github.com/vaibhavpandeyvpz/katora">vaibhavpandeyvpz/katora</a> to provide <code>Interop\Container\ContainerInterface</code>. To do so, run following:</p>
+
+<div class="highlight highlight-source-shell"><pre>composer require vaibhavpandeyvpz/katora</pre></div>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Initialize a instance of <code>Consoler\Application</code> with an <code>Interop\Container\ContainerInterface</code> instance and run as usual.</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c">#!/usr/bin/env php</span></span>
+<span class="pl-s1"><span class="pl-k">&lt;</span>?<span class="pl-c1">php</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">require_once</span> <span class="pl-c1">__DIR__</span> <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>/vendor/autoload.php<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$app</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">Consoler\</span><span class="pl-c1">Application</span>(<span class="pl-smi">$container</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">Katora\</span><span class="pl-c1">Container</span>());</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$container</span>[<span class="pl-c1">PDO</span><span class="pl-k">::</span><span class="pl-c1">class</span>] <span class="pl-k">=</span> <span class="pl-smi">$container</span><span class="pl-k">-&gt;</span>share(<span class="pl-k">function</span> ()</span>
+<span class="pl-s1">{</span>
+<span class="pl-s1">    <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-c1">PDO</span>(<span class="pl-c">/** args */</span>);</span>
+<span class="pl-s1">});</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$app</span><span class="pl-k">-&gt;</span>add(<span class="pl-k">new</span> <span class="pl-c1">SearchCommand</span>());</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$app</span><span class="pl-k">-&gt;</span>run();</span></pre></div>
+
+<p>Since <code>Consoler\Command</code> class implements <code>Interop\Container\ContainerInterface</code>, you can just extends it &amp; use as below:</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Consoler\Command</span>;</span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Symfony\Component\Console\Input\InputInterface</span> <span class="pl-k">as</span> <span class="pl-c1">Input</span>;</span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Symfony\Component\Console\Output\OutputInterface</span> <span class="pl-k">as</span> <span class="pl-c1">Output</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">class</span> <span class="pl-en">SearchCommand</span> <span class="pl-k">extends</span> <span class="pl-e">Command</span></span>
+<span class="pl-s1">{</span>
+<span class="pl-s1">    <span class="pl-k">protected</span> <span class="pl-k">function</span> <span class="pl-en">execute</span>(<span class="pl-c1">Input</span> <span class="pl-smi">$input</span>, <span class="pl-c1">Output</span> <span class="pl-smi">$output</span>)</span>
+<span class="pl-s1">    {</span>
+<span class="pl-s1">        <span class="pl-c">/** @var \PDO $pdo */</span></span>
+<span class="pl-s1">        <span class="pl-smi">$pdo</span> <span class="pl-k">=</span> <span class="pl-smi">$this</span><span class="pl-k">-&gt;</span>get(<span class="pl-c1">\PDO</span><span class="pl-k">::</span><span class="pl-c1">class</span>);</span>
+<span class="pl-s1">        <span class="pl-c">// ...more code!</span></span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1">}</span></pre></div>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>See <a href="https://github.com/vaibhavpandeyvpz/consoler/blob/master/LICENSE.md">LICENSE.md</a> file.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/vaibhavpandeyvpz/consoler">Consoler</a> is maintained by <a href="https://github.com/vaibhavpandeyvpz">vaibhavpandeyvpz</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
