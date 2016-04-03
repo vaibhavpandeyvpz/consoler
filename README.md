@@ -35,7 +35,7 @@ $app->add(new SearchCommand());
 $app->run();
 ```
 
-Since ```Consoler\Command``` class implements ```Interop\Container\ContainerInterface```, you can just extends it & use as below:
+Since ```Consoler\Command``` class implements ```Interop\Container\ContainerInterface```, you can just extend it & use the container as below:
 
 ```php
 use Consoler\Command;
