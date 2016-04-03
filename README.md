@@ -25,8 +25,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $app = new Consoler\Application($container = new Katora\Container());
 
-$container[PDO::class] = $container->share(function ()
-{
+$container[PDO::class] = $container->share(function () {
     return new PDO(/** args */);
 });
 
