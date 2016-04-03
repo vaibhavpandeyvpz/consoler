@@ -1,0 +1,19 @@
+{
+  "autoload": {
+    "psr-4": {"Consoler\\": "src/"}
+  },
+  "description": "Extensions for symfony/console adding support for using any container-interop/container-interop compatible package.",
+  "homepage": "http://vaibhavpandeyvpz.github.io/consoler",
+  "keywords": [ "symfony", "console", "container", "interop", "extension" ],
+  "license": "MIT",
+  "name": "vaibhavpandeyvpz/consoler",
+  "require": {
+    "php": ">=5.3.0",
+    "container-interop/container-interop": "^1.1",
+    "symfony/console": "^2.8"
+  },
+  "suggest": {
+    "vaibhavpandeyvpz/katora": "Minimal service container implementing container-interop/container-interop interfaces."
+  },
+  "type": "library"
+}
