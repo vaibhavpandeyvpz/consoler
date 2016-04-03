@@ -45,8 +45,7 @@
 <span class="pl-s1"></span>
 <span class="pl-s1"><span class="pl-smi">$app</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">Consoler\</span><span class="pl-c1">Application</span>(<span class="pl-smi">$container</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">Katora\</span><span class="pl-c1">Container</span>());</span>
 <span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-smi">$container</span>[<span class="pl-c1">PDO</span><span class="pl-k">::</span><span class="pl-c1">class</span>] <span class="pl-k">=</span> <span class="pl-smi">$container</span><span class="pl-k">-&gt;</span>share(<span class="pl-k">function</span> ()</span>
-<span class="pl-s1">{</span>
+<span class="pl-s1"><span class="pl-smi">$container</span>[<span class="pl-c1">PDO</span><span class="pl-k">::</span><span class="pl-c1">class</span>] <span class="pl-k">=</span> <span class="pl-smi">$container</span><span class="pl-k">-&gt;</span>share(<span class="pl-k">function</span> () {</span>
 <span class="pl-s1">    <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-c1">PDO</span>(<span class="pl-c">/** args */</span>);</span>
 <span class="pl-s1">});</span>
 <span class="pl-s1"></span>
@@ -54,7 +53,7 @@
 <span class="pl-s1"></span>
 <span class="pl-s1"><span class="pl-smi">$app</span><span class="pl-k">-&gt;</span>run();</span></pre></div>
 
-<p>Since <code>Consoler\Command</code> class implements <code>Interop\Container\ContainerInterface</code>, you can just extends it &amp; use as below:</p>
+<p>Since <code>Consoler\Command</code> class implements <code>Interop\Container\ContainerInterface</code>, you can just extend it &amp; use the container as below:</p>
 
 <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Consoler\Command</span>;</span>
 <span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Symfony\Component\Console\Input\InputInterface</span> <span class="pl-k">as</span> <span class="pl-c1">Input</span>;</span>
