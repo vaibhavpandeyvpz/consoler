@@ -12,30 +12,18 @@
 namespace Consoler;
 
 use Interop\Container\ContainerInterface as Container;
-use Symfony\Component\Console\Application as Base;
+use Symfony\Component\Console\Application as SymfonyApplication;
 
 /**
  * Class Application
  * @package Consoler
  */
-class Application extends Base
+class Application extends SymfonyApplication
 {
     /**
      * @var Container
      */
     protected $container;
-
-    /**
-     * Application constructor.
-     * @param Container $container
-     * @param string $name
-     * @param string $version
-     */
-    public function __construct(Container $container, $name = 'UNKNOWN', $version = 'UNKNOWN')
-    {
-        parent::__construct($name, $version);
-        $this->container = $container;
-    }
 
     /**
      * {@inheritdoc}
@@ -46,5 +34,14 @@ class Application extends Base
             $command->setContainer($this->container);
         }
         return parent::add($command);
+    }
+
+    /**
+     * Application constructor.
+     * @param Container $container
+     */
+    public function setContainer(Container $container)
+    {
+        $this->container = $container;
     }
 }

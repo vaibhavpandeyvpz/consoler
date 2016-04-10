@@ -12,26 +12,18 @@
 namespace Consoler;
 
 use Interop\Container\ContainerInterface as Container;
-use Symfony\Component\Console\Command\Command as Base;
+use Symfony\Component\Console\Command\Command as SymfonyCommand;
 
 /**
  * Class Command
  * @package Consoler
  */
-abstract class Command extends Base implements Container
+abstract class Command extends SymfonyCommand implements Container
 {
     /**
      * @var Container
      */
     protected $container;
-
-    /**
-     * @param Container $container
-     */
-    public function setContainer(Container $container)
-    {
-        $this->container = $container;
-    }
 
     /**
      * {@inheritdoc}
@@ -47,5 +39,13 @@ abstract class Command extends Base implements Container
     public function has($id)
     {
         return $this->container->has($id);
+    }
+
+    /**
+     * @param Container $container
+     */
+    public function setContainer(Container $container)
+    {
+        $this->container = $container;
     }
 }

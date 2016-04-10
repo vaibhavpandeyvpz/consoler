@@ -23,7 +23,9 @@ Initialize a instance of ```Consoler\Application``` with an ```Interop\Container
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$app = new Consoler\Application($container = new Katora\Container());
+$app = new Consoler\Application();
+
+$app->setContainer($container = new Katora\Container());
 
 $container[PDO::class] = $container->share(function () {
     return new PDO(/** args */);
