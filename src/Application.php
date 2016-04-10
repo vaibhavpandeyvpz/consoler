@@ -13,6 +13,7 @@ namespace Consoler;
 
 use Interop\Container\ContainerInterface as Container;
 use Symfony\Component\Console\Application as SymfonyApplication;
+use Symfony\Component\Console\Command\Command;
 
 /**
  * Class Application
@@ -30,7 +31,7 @@ class Application extends SymfonyApplication
      */
     public function add(Command $command)
     {
-        if ($command instanceof Command) {
+        if ($command instanceof \Consoler\Command) {
             $command->setContainer($this->container);
         }
         return parent::add($command);
